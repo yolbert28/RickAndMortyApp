@@ -12,32 +12,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = blue70,
+    secondary = green70,
+    tertiary = blue70,
+    onPrimary = blue5,
+    onSecondary = blue5,
+    background = blue10,
+    onBackground = blue70,
+    onSurfaceVariant = blue50,
+    onSurface = blue70,
+    onPrimaryContainer = blue5
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = green80,
+    secondary = green5,
+    tertiary = green5,
+    onPrimary = green80,
+    onSecondary = green5,
+    background = green95,
+    onBackground = green85,
+    onSurfaceVariant = green50,
+    onSurface = green95,
+    onPrimaryContainer = green5
 )
 
 @Composable
 fun RickAndMortyAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
