@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.RickAndMortyApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.RickAndMortyApp.Starting" parent ="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/blue_5</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.RickAndMortyApp</item>
+    </style>
 </resources>
