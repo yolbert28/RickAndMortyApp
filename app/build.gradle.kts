@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt.plugin)
     alias(libs.plugins.serialization.plugin)
-//    alias(libs.plugins.google.services)
-//    alias(libs.plugins.crashlytics.plugin)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics.plugin)
 }
 
 android {
@@ -56,9 +56,9 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Firebase
-//    implementation(platform(libs.firebase.bom))
-//    implementation(libs.firebase.crashlytics.ndk)
-//    implementation(libs.firebase.analytics)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics.ndk)
+    implementation(libs.firebase.analytics)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

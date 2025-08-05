@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.yolbertdev.rickandmortyapp.R
 import com.yolbertdev.rickandmortyapp.ui.core.components.CardCharacterItemApp
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardCharacterLoadingApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.Footer
 import com.yolbertdev.rickandmortyapp.ui.core.components.ImageWithGlassOverlay
 import com.yolbertdev.rickandmortyapp.ui.core.components.Layout
@@ -51,15 +52,24 @@ fun CharacterScreen(
                     Spacer(Modifier.height(20.dp))
                 }
 
-                items(uiState.characters) { character ->
-                    CardCharacterItemApp(
-                        character = character,
-                        modifier = Modifier
-                            .padding(horizontal = 20.dp, vertical = 10.dp)
-                            .clickable {
-                                navigateToDetails(character.id)
-                            }
-                    )
+                if (uiState.characters.isNotEmpty()) {
+                    items(uiState.characters) { character ->
+                        CardCharacterItemApp(
+                            character = character,
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp, vertical = 10.dp)
+                                .clickable {
+                                    navigateToDetails(character.id)
+                                }
+                        )
+                    }
+                } else {
+                    items(20){
+                        CardCharacterLoadingApp(
+                            modifier = Modifier
+                                .padding(horizontal = 20.dp, vertical = 10.dp)
+                        )
+                    }
                 }
                 item {
                     PaginationApp(navigateToBackPage = {}, navigateToNextPage = {})
