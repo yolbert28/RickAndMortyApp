@@ -31,9 +31,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
+import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
-import com.yolbertdev.rickandmortyapp.ui.model.EpisodeUiModel
 
 @Composable
 fun EpisodeDetailScreen(
@@ -52,89 +52,93 @@ fun EpisodeDetailScreen(
         navigateBack = navigateBack,
         navigateToHome = navigateToHome
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(
-                    MaterialTheme.colorScheme.primary
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(Modifier.height(30.dp))
+        if (episode != null) {
             Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(
+                        MaterialTheme.colorScheme.primary
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextApp(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = episode?.episode ?: "",
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(20.dp))
-                TextAnnotatedApp(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Name: ")
-                        }
-                        append(episode?.name)
-                    },
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(20.dp))
-                TextAnnotatedApp(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Air date: ")
-                        }
-                        append(episode?.airDate)
-                    },
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
                 Spacer(Modifier.height(30.dp))
-                TextApp(
-                    text = "Characters number: ",
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(25.dp))
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3)
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
                 ) {
-                    items(episode?.characters ?: emptyList()) { character ->
-                        Box(
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .clip(RoundedCornerShape(10))
-                                .size(100.dp)
-                                .background(MaterialTheme.colorScheme.onSurfaceVariant)
-                                .border(
-                                    2.dp,
-                                    MaterialTheme.colorScheme.onSecondary,
-                                    RoundedCornerShape(10)
+                    TextApp(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = episode?.episode ?: "",
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(20.dp))
+                    TextAnnotatedApp(
+                        text = buildAnnotatedString {
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Name: ")
+                            }
+                            append(episode?.name)
+                        },
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(20.dp))
+                    TextAnnotatedApp(
+                        text = buildAnnotatedString {
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Air date: ")
+                            }
+                            append(episode?.airDate)
+                        },
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(30.dp))
+                    TextApp(
+                        text = "Characters number: ",
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(25.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(3)
+                    ) {
+                        items(episode?.characters ?: emptyList()) { character ->
+                            Box(
+                                modifier = Modifier
+                                    .padding(5.dp)
+                                    .clip(RoundedCornerShape(10))
+                                    .size(100.dp)
+                                    .background(MaterialTheme.colorScheme.onSurfaceVariant)
+                                    .border(
+                                        2.dp,
+                                        MaterialTheme.colorScheme.onSecondary,
+                                        RoundedCornerShape(10)
+                                    )
+                                    .clickable {
+                                        navigateToCharacter(character)
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                TextApp(
+                                    text = character.toString(),
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSecondary
                                 )
-                                .clickable {
-                                    navigateToCharacter(character)
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            TextApp(
-                                text = character.toString(),
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondary
-                            )
+                            }
                         }
+
                     }
-
                 }
+
+
             }
-
-
+        } else {
+            LoadingDetail()
         }
 
     }

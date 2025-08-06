@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
+import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
 
@@ -51,93 +52,98 @@ fun LocationDetailScreen(
         navigateBack = navigateBack,
         navigateToHome = navigateToHome
     ) { innerPadding ->
-        Column(
-            Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.primary)
-        ) {
+
+        if (location != null) {
             Column(
                 Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.primary)
             ) {
-                Spacer(Modifier.height(20.dp))
-                TextApp(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = location?.name.orEmpty(),
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(20.dp))
-                TextAnnotatedApp(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Dimension: ")
-                        }
-                        append(location?.dimension)
-                    },
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(20.dp))
-                TextAnnotatedApp(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Type: ")
-                        }
-                        append(location?.type)
-                    },
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(16.dp))
-                TextAnnotatedApp(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Location number: ")
-                        }
-                        append(location?.id.toString())
-                    },
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(30.dp))
-                TextApp(
-                    text = "Residents: ",
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSecondary
-                )
-                Spacer(Modifier.height(25.dp))
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3)
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
                 ) {
-                    items(location?.residents ?: emptyList(), key = { it }) { resident ->
-                        Box(
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .clip(RoundedCornerShape(10))
-                                .size(100.dp)
-                                .background(MaterialTheme.colorScheme.onSurfaceVariant)
-                                .border(
-                                    2.dp,
-                                    MaterialTheme.colorScheme.onSecondary,
-                                    RoundedCornerShape(10)
+                    Spacer(Modifier.height(20.dp))
+                    TextApp(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = location?.name.orEmpty(),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(20.dp))
+                    TextAnnotatedApp(
+                        text = buildAnnotatedString {
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Dimension: ")
+                            }
+                            append(location?.dimension)
+                        },
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(20.dp))
+                    TextAnnotatedApp(
+                        text = buildAnnotatedString {
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Type: ")
+                            }
+                            append(location?.type)
+                        },
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    TextAnnotatedApp(
+                        text = buildAnnotatedString {
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Location number: ")
+                            }
+                            append(location?.id.toString())
+                        },
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(30.dp))
+                    TextApp(
+                        text = "Residents: ",
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
+                    Spacer(Modifier.height(25.dp))
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(3)
+                    ) {
+                        items(location?.residents ?: emptyList(), key = { it }) { resident ->
+                            Box(
+                                modifier = Modifier
+                                    .padding(5.dp)
+                                    .clip(RoundedCornerShape(10))
+                                    .size(100.dp)
+                                    .background(MaterialTheme.colorScheme.onSurfaceVariant)
+                                    .border(
+                                        2.dp,
+                                        MaterialTheme.colorScheme.onSecondary,
+                                        RoundedCornerShape(10)
+                                    )
+                                    .clickable {
+                                        navigateToCharacter(resident)
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                TextApp(
+                                    text = resident.toString(),
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSecondary
                                 )
-                                .clickable {
-                                    navigateToCharacter(resident)
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            TextApp(
-                                text = resident.toString(),
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondary
-                            )
+                            }
                         }
                     }
                 }
             }
+        } else {
+            LoadingDetail()
         }
     }
 }

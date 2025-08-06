@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yolbertdev.rickandmortyapp.R
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardEpisodeLoadingItemApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.Footer
 import com.yolbertdev.rickandmortyapp.ui.core.components.ImageWithGlassOverlay
 import com.yolbertdev.rickandmortyapp.ui.core.components.Layout
@@ -49,12 +50,18 @@ fun EpisodeScreen(
                 )
             }
 
-            items(uiState.episodes, key = { it.id }) { episode ->
-                CardEpisodeItemApp(
-                    modifier = Modifier,
-                    episode = episode
-                ) {
-                    navigateToDetail(episode.id)
+            if (uiState.pages != null) {
+                items(uiState.episodes, key = { it.id }) { episode ->
+                    CardEpisodeItemApp(
+                        modifier = Modifier,
+                        episode = episode
+                    ) {
+                        navigateToDetail(episode.id)
+                    }
+                }
+            } else {
+                items(20, key = { it }) {
+                    CardEpisodeLoadingItemApp()
                 }
             }
             item(span = { GridItemSpan(3) }) {

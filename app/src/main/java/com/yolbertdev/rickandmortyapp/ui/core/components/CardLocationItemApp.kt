@@ -1,4 +1,4 @@
-package com.yolbertdev.rickandmortyapp.ui.core.navigation
+package com.yolbertdev.rickandmortyapp.ui.core.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,29 +13,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yolbertdev.rickandmortyapp.domain.model.Episode
-import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
+import com.yolbertdev.rickandmortyapp.domain.model.Location
 
 @Composable
-fun CardEpisodeItemApp(modifier: Modifier = Modifier, episode: Episode , navigateToDetail: () -> Unit) {
+fun CardLocationItemApp(modifier: Modifier = Modifier, location: Location, navigateToDetail: (Int) -> Unit) {
     Box(
         modifier = modifier
-            .padding(5.dp)
+            .padding(20.dp, 10.dp)
             .height(100.dp)
             .fillMaxSize()
             .clip(RoundedCornerShape(10))
             .background(MaterialTheme.colorScheme.onBackground)
             .clickable{
-                navigateToDetail()
+                navigateToDetail(location.id)
             },
         contentAlignment = Alignment.Center
     ) {
 
         TextApp(
-            text = episode.episode,
+            modifier = Modifier.padding(horizontal = 10.dp),
+            text = location.name,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSecondary
+            color = MaterialTheme.colorScheme.onSecondary,
+            textAlign = TextAlign.Center
         )
     }
 }

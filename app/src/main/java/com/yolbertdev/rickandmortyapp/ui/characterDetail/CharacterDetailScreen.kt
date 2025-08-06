@@ -34,8 +34,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
+import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
+import com.yolbertdev.rickandmortyapp.ui.core.effects.shimmerEffect
 
 @Composable
 fun CharacterDetailScreen(
@@ -55,133 +57,139 @@ fun CharacterDetailScreen(
         navigateBack = navigateBack,
         navigateToHome = navigateToHome
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .background(
-                    MaterialTheme.colorScheme.primary
-                ),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                Spacer(Modifier.height(30.dp))
-                AsyncImage(
-                    modifier = Modifier
-                        .size(200.dp)
-                        .clip(CircleShape),
-                    model = character?.image,
-                    contentDescription = character?.name,
-                    contentScale = ContentScale.Crop
-                )
-                Spacer(Modifier.height(20.dp))
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                ) {
-                    TextApp(
-                        text = character?.name.orEmpty(),
-                        fontSize = 40.sp,
-                        lineHeight = 40.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Origen: ")
-                            }
-                            append(character?.location?.name)
-                        }, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Species: ")
-                            }
-                            append(character?.species)
-                        }, color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Gender: ")
-                            }
-                            append(character?.gender)
-                        }, color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Type: ")
-                            }
-                            append(character?.type)
-                        }, color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        modifier = Modifier.clickable {
-                            navigateToLocation(character?.location?.id ?: 0)
-                        }, text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Location: ")
-                            }
-                            withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
-                                append(character?.location?.name)
-                            }
-                        }, color = MaterialTheme.colorScheme.onSecondary
-                    )
-                    Spacer(Modifier.height(12.dp))
-                    TextAnnotatedApp(
-                        text = buildAnnotatedString {
-                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Character number: ")
-                            }
-                            append(character?.id.toString())
-                        }, color = MaterialTheme.colorScheme.onSecondary
-                    )
+
+        if (character != null) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(
+                        MaterialTheme.colorScheme.primary
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
                     Spacer(Modifier.height(30.dp))
-                    TextApp(
-                        text = "Episodes: ",
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondary
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                            .shimmerEffect(),
+                        model = character?.image,
+                        contentDescription = character?.name,
+                        contentScale = ContentScale.Crop
                     )
-                    Spacer(Modifier.height(25.dp))
-                    LazyRow {
-                        items(character?.episode ?: emptyList()) { character ->
-                            Box(
-                                modifier = Modifier
-                                    .padding(horizontal = 5.dp)
-                                    .clip(RoundedCornerShape(10))
-                                    .size(100.dp)
-                                    .background(MaterialTheme.colorScheme.onSurfaceVariant)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.onSecondary,
-                                        RoundedCornerShape(10)
+                    Spacer(Modifier.height(20.dp))
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                    ) {
+                        TextApp(
+                            text = character?.name.orEmpty(),
+                            fontSize = 40.sp,
+                            lineHeight = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Origin: ")
+                                }
+                                append(character?.origin?.name)
+                            }, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Species: ")
+                                }
+                                append(character?.species)
+                            }, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Gender: ")
+                                }
+                                append(character?.gender)
+                            }, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Type: ")
+                                }
+                                append( if(character?.type.orEmpty().isNotEmpty()) character?.type else "----" )
+                            }, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            modifier = Modifier.clickable {
+                                navigateToLocation(character?.location?.id ?: 0)
+                            }, text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Location: ")
+                                }
+                                withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
+                                    append(character?.location?.name)
+                                }
+                            }, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        TextAnnotatedApp(
+                            text = buildAnnotatedString {
+                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                    append("Character number: ")
+                                }
+                                append(character?.id.toString())
+                            }, color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(30.dp))
+                        TextApp(
+                            text = "Episodes: ",
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondary
+                        )
+                        Spacer(Modifier.height(25.dp))
+                        LazyRow {
+                            items(character?.episode ?: emptyList()) { character ->
+                                Box(
+                                    modifier = Modifier
+                                        .padding(horizontal = 5.dp)
+                                        .clip(RoundedCornerShape(10))
+                                        .size(100.dp)
+                                        .background(MaterialTheme.colorScheme.onSurfaceVariant)
+                                        .border(
+                                            2.dp,
+                                            MaterialTheme.colorScheme.onSecondary,
+                                            RoundedCornerShape(10)
+                                        )
+                                        .clickable {
+                                            navigateToEpisode(character)
+                                        }, contentAlignment = Alignment.Center
+                                ) {
+                                    TextApp(
+                                        text = if (character > 9) character.toString() else "0$character",
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSecondary
                                     )
-                                    .clickable {
-                                        navigateToEpisode(character)
-                                    }, contentAlignment = Alignment.Center
-                            ) {
-                                TextApp(
-                                    text = "S01E${if (character > 9) character else "0$character"}",
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSecondary
-                                )
+                                }
                             }
+
                         }
-
+                        Spacer(Modifier.height(10.dp))
                     }
-                    Spacer(Modifier.height(10.dp))
-                }
 
+                }
             }
+        } else {
+            LoadingDetail()
         }
 
     }

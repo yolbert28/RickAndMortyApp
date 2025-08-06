@@ -116,7 +116,14 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
                 navController.popBackStack()
             }
         }
-        composable<EpisodeDetail> { navBackStackEntry ->
+        composable<EpisodeDetail>(
+            enterTransition = {
+                fadeIn()
+            },
+            exitTransition = {
+                fadeOut()
+            }
+        ) { navBackStackEntry ->
             val episodeDetail: EpisodeDetail = navBackStackEntry.toRoute()
 
             EpisodeDetailScreen(
@@ -131,7 +138,14 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
                 navController.popBackStack()
             }
         }
-        composable< LocationDetail> { navBackStackEntry ->
+        composable< LocationDetail>(
+            enterTransition = {
+                fadeIn()
+            },
+            exitTransition = {
+                fadeOut()
+            }
+        ) { navBackStackEntry ->
             val locationDetail: LocationDetail = navBackStackEntry.toRoute()
 
             LocationDetailScreen(

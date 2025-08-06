@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yolbertdev.rickandmortyapp.R
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardEpisodeLoadingItemApp
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardLocationItemApp
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardLocationLoadingItemApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.Footer
 import com.yolbertdev.rickandmortyapp.ui.core.components.ImageWithGlassOverlay
 import com.yolbertdev.rickandmortyapp.ui.core.components.Layout
@@ -53,27 +56,16 @@ fun LocationScreen(
                 )
             }
 
-            items(uiState.locations) { location ->
-                Box(
-                    modifier = Modifier
-                        .padding(20.dp,5.dp)
-                        .height(100.dp)
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(10))
-                        .background(MaterialTheme.colorScheme.onBackground)
-                        .clickable{
-                            navigateToLocation(location.id)
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-
-                    TextApp(
-                        modifier = Modifier.padding(horizontal = 10.dp),
-                        text = location.name,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        textAlign = TextAlign.Center
+            if(uiState.pages != null) {
+                items(uiState.locations) { location ->
+                    CardLocationItemApp(
+                        location = location,
+                        navigateToDetail = navigateToLocation
                     )
+                }
+            } else {
+                items(20) {
+                    CardLocationLoadingItemApp()
                 }
             }
             item() {

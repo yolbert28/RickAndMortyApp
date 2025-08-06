@@ -25,7 +25,7 @@ fun CharacterModel.toDomain() = Character (
     status = status,
     location = LocationC(
         id = try {
-            origin.url.substringAfterLast("/").toInt()
+            location.url.substringAfterLast("/").toInt()
         } catch (e: Exception){
             0
         },

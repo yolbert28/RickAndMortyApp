@@ -50,7 +50,7 @@ fun CharacterScreen(
                 Spacer(Modifier.height(20.dp))
             }
 
-            if (uiState.characters.isNotEmpty()) {
+            if (uiState.pages != null) {
                 items(uiState.characters, key = { it.id }) { character ->
                     CardCharacterItemApp(
                         character = character,
