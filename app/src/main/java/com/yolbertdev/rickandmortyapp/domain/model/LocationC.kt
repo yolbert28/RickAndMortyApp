@@ -1,6 +1,6 @@
 package com.yolbertdev.rickandmortyapp.domain.model
 
-data class Origin(
+data class LocationC(
     val id: Int,
     val name: String
 )

@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.yolbertdev.rickandmortyapp.domain.model.Character
+import com.yolbertdev.rickandmortyapp.ui.core.effects.shimmerEffect
 
 @Composable
 fun CardCharacterItemApp(character: Character, modifier: Modifier = Modifier) {
@@ -37,7 +38,7 @@ fun CardCharacterItemApp(character: Character, modifier: Modifier = Modifier) {
             AsyncImage(
                 model = character.image,
                 contentDescription = character.name,
-                modifier = Modifier.size(128.dp),
+                modifier = Modifier.size(128.dp).shimmerEffect(),
                 contentScale = ContentScale.Fit
             )
             Column {

@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
@@ -35,38 +38,15 @@ import com.yolbertdev.rickandmortyapp.ui.model.EpisodeUiModel
 @Composable
 fun EpisodeDetailScreen(
     id: Int,
+    viewModel: EpisodeDetailViewModel = hiltViewModel(),
     navigateToCharacter: (Int) -> Unit,
     navigateToHome: () -> Unit,
     navigateBack: () -> Unit
 ) {
 
-    val episode = EpisodeUiModel(
-        id = 1,
-        name = "Pilot",
-        episode = "S01E01",
-        airDate = "December 2, 2013",
-        characters = listOf(
-            1,
-            2,
-            35,
-            38,
-            62,
-            92,
-            127,
-            144,
-            158,
-            175,
-            179,
-            181,
-            239,
-            249,
-            271,
-            338,
-            394,
-            395,
-            435
-        )
-    )
+    viewModel.getEpisode(id)
+
+    val episode by viewModel.uiState.collectAsStateWithLifecycle()
 
     DetailLayout(
         navigateBack = navigateBack,
@@ -89,7 +69,7 @@ fun EpisodeDetailScreen(
             ) {
                 TextApp(
                     modifier = Modifier.fillMaxWidth(),
-                    text = episode.episode,
+                    text = episode?.episode ?: "",
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -101,7 +81,7 @@ fun EpisodeDetailScreen(
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                             append("Name: ")
                         }
-                        append(episode.name)
+                        append(episode?.name)
                     },
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSecondary
@@ -112,7 +92,7 @@ fun EpisodeDetailScreen(
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                             append("Air date: ")
                         }
-                        append(episode.airDate)
+                        append(episode?.airDate)
                     },
                     color = MaterialTheme.colorScheme.onSecondary
                 )
@@ -126,7 +106,7 @@ fun EpisodeDetailScreen(
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(3)
                 ) {
-                    items(episode.characters) { character ->
+                    items(episode?.characters ?: emptyList()) { character ->
                         Box(
                             modifier = Modifier
                                 .padding(5.dp)
@@ -144,7 +124,7 @@ fun EpisodeDetailScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             TextApp(
-                                text = "$character",
+                                text = character.toString(),
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSecondary
                             )

@@ -10,8 +10,8 @@ data class Character (
     val species: String,
     val type: String,
     val status: String,
-    val location: Location,
-    val origin: Origin,
+    val location: LocationC,
+    val origin: OriginC,
     val episode: List<Int>,
 )
 
@@ -23,7 +23,7 @@ fun CharacterModel.toDomain() = Character (
     species = species,
     type = type,
     status = status,
-    location = Location(
+    location = LocationC(
         id = try {
             origin.url.substringAfterLast("/").toInt()
         } catch (e: Exception){
@@ -31,7 +31,7 @@ fun CharacterModel.toDomain() = Character (
         },
         name = location.name
     ),
-    origin = Origin(
+    origin = OriginC(
         id = try {
             origin.url.substringAfterLast("/").toInt()
         } catch (e: Exception){

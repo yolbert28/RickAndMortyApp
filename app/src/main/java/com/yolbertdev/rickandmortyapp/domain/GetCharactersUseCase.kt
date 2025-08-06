@@ -8,8 +8,8 @@ class GetCharactersUseCase @Inject constructor(
     private val repository: RickAndMortyRepository
 ) {
 
-    suspend operator fun invoke(): CharacterResult {
-        return repository.getAllCharacters()
+    suspend operator fun invoke(page: Int): CharacterResult {
+        return repository.getAllCharacters(page)
     }
 
 }

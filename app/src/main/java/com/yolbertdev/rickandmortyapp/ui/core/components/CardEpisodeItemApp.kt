@@ -14,11 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.yolbertdev.rickandmortyapp.domain.model.Episode
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
 import com.yolbertdev.rickandmortyapp.ui.model.EpisodeUiModel
 
 @Composable
-fun CardEpisodeItemApp(modifier: Modifier = Modifier, episode: EpisodeUiModel , navigateToDetail: () -> Unit) {
+fun CardEpisodeItemApp(modifier: Modifier = Modifier, episode: Episode , navigateToDetail: () -> Unit) {
     Box(
         modifier = modifier
             .padding(5.dp)

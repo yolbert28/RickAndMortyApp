@@ -21,7 +21,7 @@ fun TextAnnotatedApp(
     fontWeight: FontWeight? = null,
     textDecoration: TextDecoration? = null,
     textAlign: TextAlign? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
+    lineHeight: TextUnit = fontSize,
     overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,

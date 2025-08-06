@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,93 +30,26 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
-import com.yolbertdev.rickandmortyapp.ui.model.CharacterUiModel
-import com.yolbertdev.rickandmortyapp.ui.model.Location
-import com.yolbertdev.rickandmortyapp.ui.model.Origin
 
 @Composable
 fun CharacterDetailScreen(
     id: Int,
+    viewModel: CharacterDetailViewModel = hiltViewModel(),
     navigateToLocation: (Int) -> Unit,
     navigateToHome: () -> Unit,
     navigateToEpisode: (Int) -> Unit,
     navigateBack: () -> Unit
 ) {
 
-    val character = CharacterUiModel(
-        id = 1,
-        name = "Rick Sanchez",
-        image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-        gender = "Male",
-        species = "Human",
-        status = "Alive",
-        origin = Origin(
-            id = 1,
-            name = "Earth"
-        ),
-        location = Location(
-            id = 1,
-            name = "Morty's house"
-        ),
-        episode = listOf(
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31,
-            32,
-            33,
-            34,
-            35,
-            36,
-            37,
-            38,
-            39,
-            40,
-            41,
-            42,
-            43,
-            44,
-            45,
-            46,
-            47,
-            48,
-            49,
-            50,
-            51
-        ),
-        type = ""
-    )
+    viewModel.getCharacter(id)
+
+    val character by viewModel.uiState.collectAsStateWithLifecycle()
 
     DetailLayout(
         navigateBack = navigateBack,
@@ -136,8 +70,8 @@ fun CharacterDetailScreen(
                     modifier = Modifier
                         .size(200.dp)
                         .clip(CircleShape),
-                    model = character.image,
-                    contentDescription = character.name,
+                    model = character?.image,
+                    contentDescription = character?.name,
                     contentScale = ContentScale.Crop
                 )
                 Spacer(Modifier.height(20.dp))
@@ -147,8 +81,9 @@ fun CharacterDetailScreen(
                         .padding(horizontal = 20.dp)
                 ) {
                     TextApp(
-                        text = "Rick Sanchez",
+                        text = character?.name.orEmpty(),
                         fontSize = 40.sp,
+                        lineHeight = 40.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondary
                     )
@@ -158,10 +93,8 @@ fun CharacterDetailScreen(
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Origen: ")
                             }
-                            append("Earth")
-                        },
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.onSecondary
+                            append(character?.location?.name)
+                        }, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(12.dp))
                     TextAnnotatedApp(
@@ -169,9 +102,8 @@ fun CharacterDetailScreen(
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Species: ")
                             }
-                            append("Human")
-                        },
-                        color = MaterialTheme.colorScheme.onSecondary
+                            append(character?.species)
+                        }, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(12.dp))
                     TextAnnotatedApp(
@@ -179,9 +111,8 @@ fun CharacterDetailScreen(
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Gender: ")
                             }
-                            append("Male")
-                        },
-                        color = MaterialTheme.colorScheme.onSecondary
+                            append(character?.gender)
+                        }, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(12.dp))
                     TextAnnotatedApp(
@@ -189,24 +120,21 @@ fun CharacterDetailScreen(
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Type: ")
                             }
-                            append("----")
-                        },
-                        color = MaterialTheme.colorScheme.onSecondary
+                            append(character?.type)
+                        }, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(12.dp))
                     TextAnnotatedApp(
                         modifier = Modifier.clickable {
-                            navigateToLocation(character.location.id)
-                        },
-                        text = buildAnnotatedString {
+                            navigateToLocation(character?.location?.id ?: 0)
+                        }, text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Location: ")
                             }
                             withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
-                                append("Citadel of Ricks")
+                                append(character?.location?.name)
                             }
-                        },
-                        color = MaterialTheme.colorScheme.onSecondary
+                        }, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(12.dp))
                     TextAnnotatedApp(
@@ -214,9 +142,8 @@ fun CharacterDetailScreen(
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append("Character number: ")
                             }
-                            append("${character.id}")
-                        },
-                        color = MaterialTheme.colorScheme.onSecondary
+                            append(character?.id.toString())
+                        }, color = MaterialTheme.colorScheme.onSecondary
                     )
                     Spacer(Modifier.height(30.dp))
                     TextApp(
@@ -226,7 +153,7 @@ fun CharacterDetailScreen(
                     )
                     Spacer(Modifier.height(25.dp))
                     LazyRow {
-                        items(character.episode) { character ->
+                        items(character?.episode ?: emptyList()) { character ->
                             Box(
                                 modifier = Modifier
                                     .padding(horizontal = 5.dp)
@@ -240,8 +167,7 @@ fun CharacterDetailScreen(
                                     )
                                     .clickable {
                                         navigateToEpisode(character)
-                                    },
-                                contentAlignment = Alignment.Center
+                                    }, contentAlignment = Alignment.Center
                             ) {
                                 TextApp(
                                     text = "S01E${if (character > 9) character else "0$character"}",
@@ -259,5 +185,6 @@ fun CharacterDetailScreen(
         }
 
     }
+
 
 }

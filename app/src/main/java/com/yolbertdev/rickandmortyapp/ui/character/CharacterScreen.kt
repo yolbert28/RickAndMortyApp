@@ -32,49 +32,49 @@ fun CharacterScreen(
     navigateToHome: () -> Unit
 ) {
 
-    viewModel.getCharacters()
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Layout(onChangeTheme = onChangeTheme, navigateToHome = navigateToHome) { innerPadding ->
-        Column(
+
+        LazyColumn(
             modifier = Modifier.padding(innerPadding)
         ) {
-            LazyColumn {
-                item {
-                    ImageWithGlassOverlay(
-                        text = "Personajes",
-                        image = painterResource(R.drawable.characters),
-                        modifier = Modifier.height(380.dp),
-                        blurPaddingTop = 250.dp,
-                        blurPaddingBottom = 350.dp
-                    )
-                    Spacer(Modifier.height(20.dp))
-                }
+            item {
+                ImageWithGlassOverlay(
+                    text = "Personajes",
+                    image = painterResource(R.drawable.characters),
+                    modifier = Modifier.height(380.dp),
+                    blurPaddingTop = 250.dp,
+                    blurPaddingBottom = 350.dp
+                )
+                Spacer(Modifier.height(20.dp))
+            }
 
-                if (uiState.characters.isNotEmpty()) {
-                    items(uiState.characters) { character ->
-                        CardCharacterItemApp(
-                            character = character,
-                            modifier = Modifier
-                                .padding(horizontal = 20.dp, vertical = 10.dp)
-                                .clickable {
-                                    navigateToDetails(character.id)
-                                }
-                        )
-                    }
-                } else {
-                    items(20){
-                        CardCharacterLoadingApp(
-                            modifier = Modifier
-                                .padding(horizontal = 20.dp, vertical = 10.dp)
-                        )
-                    }
+            if (uiState.characters.isNotEmpty()) {
+                items(uiState.characters, key = { it.id }) { character ->
+                    CardCharacterItemApp(
+                        character = character,
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp, vertical = 10.dp)
+                            .clickable {
+                                navigateToDetails(character.id)
+                            }
+                    )
                 }
-                item {
-                    PaginationApp(navigateToBackPage = {}, navigateToNextPage = {})
-                    Footer()
+            } else {
+                items(20) {
+                    CardCharacterLoadingApp(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp, vertical = 10.dp)
+                    )
                 }
+            }
+            item {
+                PaginationApp(
+                    maxPages = uiState.pages ?: 1,
+                    currentPage = uiState.currentPage,
+                    onChangePage = { page: Int -> viewModel.onChangePage(page) })
+                Footer()
             }
         }
     }

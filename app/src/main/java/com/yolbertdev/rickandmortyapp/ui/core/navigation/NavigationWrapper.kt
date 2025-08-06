@@ -3,7 +3,6 @@ package com.yolbertdev.rickandmortyapp.ui.core.navigation
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,7 +12,7 @@ import com.yolbertdev.rickandmortyapp.ui.characterDetail.CharacterDetailScreen
 import com.yolbertdev.rickandmortyapp.ui.episode.EpisodeScreen
 import com.yolbertdev.rickandmortyapp.ui.episodeDetail.EpisodeDetailScreen
 import com.yolbertdev.rickandmortyapp.ui.home.HomeScreen
-import com.yolbertdev.rickandmortyapp.ui.localization.LocalizationScreen
+import com.yolbertdev.rickandmortyapp.ui.location.LocationScreen
 import com.yolbertdev.rickandmortyapp.ui.locationDetail.LocationDetailScreen
 
 @Composable
@@ -85,7 +84,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
                 fadeOut()
             }
         ) {
-            LocalizationScreen(
+            LocationScreen(
                 onChangeTheme = onChangeTheme,
                 navigateToLocation = { id: Int ->
                     navController.navigate(LocationDetail(id))
@@ -104,7 +103,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
         ) { navBackStackEntry ->
             val characterDetail: CharacterDetail = navBackStackEntry.toRoute()
             CharacterDetailScreen(
-                characterDetail.id,
+                id = characterDetail.id,
                 navigateToHome = {
                     navController.popBackStack(route = Home, inclusive = false)
                 }, navigateToLocation = { id: Int ->
