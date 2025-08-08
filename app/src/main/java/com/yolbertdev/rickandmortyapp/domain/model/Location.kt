@@ -9,11 +9,3 @@ data class Location (
     val dimension: String,
     val residents: List<Int>,
 )
-
-fun LocationModel.toDomain() = Location(
-    id = id,
-    name = name,
-    type = type,
-    dimension = dimension,
-    residents = residents.map { it.substringAfterLast("/").toInt() }
-)

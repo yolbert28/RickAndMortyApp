@@ -12,7 +12,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RickAndMortyApiClient {
-
     @GET("character/")
     suspend fun getAllCharacters(@Query("page") page: Int): Response<CharacterResultModel>
 

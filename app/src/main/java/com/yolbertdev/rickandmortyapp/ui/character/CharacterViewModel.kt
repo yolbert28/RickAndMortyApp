@@ -3,7 +3,9 @@ package com.yolbertdev.rickandmortyapp.ui.character
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yolbertdev.rickandmortyapp.domain.GetCharactersUseCase
-import com.yolbertdev.rickandmortyapp.domain.model.Character
+import com.yolbertdev.rickandmortyapp.domain.model.CharacterResult
+import com.yolbertdev.rickandmortyapp.domain.model.DataError
+import com.yolbertdev.rickandmortyapp.domain.model.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,11 +38,8 @@ class CharacterViewModel @Inject constructor(
 
             _uiState.update {
                 it.copy(
-                    pages = result.pages,
-                    next = result.next,
                     currentPage = page,
-                    prev = result.prev,
-                    characters = result.characters
+                    data = result
                 )
             }
         }
@@ -49,9 +48,6 @@ class CharacterViewModel @Inject constructor(
 }
 
 data class CharacterUiState (
-    val pages: Int? = null,
-    val next: Int? = null,
-    val currentPage: Int = 1,
-    val prev: Int? = null,
-    val characters: List<Character> = emptyList()
+    val currentPage: Int = 0,
+    val data: Result<CharacterResult, DataError.Network> = Result.Loading
 )

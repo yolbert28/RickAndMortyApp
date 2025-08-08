@@ -14,34 +14,3 @@ data class Character (
     val origin: OriginC,
     val episode: List<Int>,
 )
-
-fun CharacterModel.toDomain() = Character (
-    id = id,
-    name = name,
-    image = image,
-    gender = gender,
-    species = species,
-    type = type,
-    status = status,
-    location = LocationC(
-        id = try {
-            location.url.substringAfterLast("/").toInt()
-        } catch (e: Exception){
-            0
-        },
-        name = location.name
-    ),
-    origin = OriginC(
-        id = try {
-            origin.url.substringAfterLast("/").toInt()
-        } catch (e: Exception){
-            0
-        },
-        name = origin.name
-    ),
-    episode = episode.map { try {
-        it.substringAfterLast("/").toInt()
-    } catch (e: Exception){
-        0
-    } }
-)

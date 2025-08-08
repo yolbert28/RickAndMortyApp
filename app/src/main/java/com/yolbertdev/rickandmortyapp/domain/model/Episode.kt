@@ -10,17 +10,3 @@ data class Episode(
     val airDate: String,
     val characters: List<Int>
 )
-
-fun EpisodeModel.toDomain() = Episode(
-    id = id,
-    name = name,
-    episode = episode,
-    airDate = air_date,
-    characters = characters.map {
-        try {
-            it.substringAfterLast("/").toInt()
-        } catch (e: Exception) {
-            0
-        }
-    }
-)
