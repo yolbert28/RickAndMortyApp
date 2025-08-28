@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt.plugin)
     alias(libs.plugins.serialization.plugin)
@@ -71,6 +72,9 @@ dependencies {
     // RetroFit2
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     // Serializable
     implementation(libs.kotlinx.serialization.json)
