@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,26 +21,27 @@ import com.yolbertdev.rickandmortyapp.ui.core.components.Footer
 import com.yolbertdev.rickandmortyapp.ui.core.components.ImageWithGlassOverlay
 import com.yolbertdev.rickandmortyapp.ui.core.components.Layout
 import com.yolbertdev.rickandmortyapp.ui.core.components.PaginationApp
-import com.yolbertdev.rickandmortyapp.ui.core.navigation.CardEpisodeItemApp
+import com.yolbertdev.rickandmortyapp.ui.core.components.CardEpisodeItemApp
 
 @Composable
 fun EpisodeScreen(
     viewModel: EpisodeViewModel = hiltViewModel(),
     onChangeTheme: () -> Unit,
+    isDarkTheme: Boolean,
     navigateToDetail: (Int) -> Unit,
     navigateToHome: () -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Layout(onChangeTheme = onChangeTheme, navigateToHome = navigateToHome) { innerPadding ->
+    Layout(onChangeTheme = onChangeTheme, isDarkTheme = isDarkTheme, navigateToHome = navigateToHome) { innerPadding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             modifier = Modifier.padding(innerPadding)
         ) {
             item(span = { GridItemSpan(3) }) {
                 ImageWithGlassOverlay(
-                    text = "Episodios",
+                    text = stringResource(R.string.episode_screen_title),
                     image = painterResource(R.drawable.season1),
                     modifier = Modifier
                         .fillMaxWidth()

@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +35,7 @@ import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
 import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
-
+import com.yolbertdev.rickandmortyapp.R
 @Composable
 fun LocationDetailScreen(
     id: Int,
@@ -78,7 +79,7 @@ fun LocationDetailScreen(
                     TextAnnotatedApp(
                         text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Dimension: ")
+                                append(stringResource(R.string.location_detail_screen_dimension))
                             }
                             append(location?.dimension)
                         },
@@ -89,7 +90,7 @@ fun LocationDetailScreen(
                     TextAnnotatedApp(
                         text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Type: ")
+                                append(stringResource(R.string.location_detail_screen_type))
                             }
                             append(location?.type)
                         },
@@ -99,7 +100,7 @@ fun LocationDetailScreen(
                     TextAnnotatedApp(
                         text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Location number: ")
+                                append(stringResource(R.string.location_detail_screen_location_number))
                             }
                             append(location?.id.toString())
                         },
@@ -107,7 +108,7 @@ fun LocationDetailScreen(
                     )
                     Spacer(Modifier.height(30.dp))
                     TextApp(
-                        text = "Residents: ",
+                        text = stringResource(R.string.location_detail_screen_residents),
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondary
                     )

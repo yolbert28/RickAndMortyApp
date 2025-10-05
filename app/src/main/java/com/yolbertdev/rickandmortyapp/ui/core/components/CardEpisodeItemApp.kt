@@ -1,4 +1,4 @@
-package com.yolbertdev.rickandmortyapp.ui.core.navigation
+package com.yolbertdev.rickandmortyapp.ui.core.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.yolbertdev.rickandmortyapp.domain.model.Episode
-import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
 
 @Composable
 fun CardEpisodeItemApp(modifier: Modifier = Modifier, episode: Episode , navigateToDetail: () -> Unit) {

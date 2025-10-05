@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,7 @@ import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
 import com.yolbertdev.rickandmortyapp.ui.core.effects.shimmerEffect
-
+import com.yolbertdev.rickandmortyapp.R
 @Composable
 fun CharacterDetailScreen(
     id: Int,
@@ -96,7 +97,7 @@ fun CharacterDetailScreen(
                         TextAnnotatedApp(
                             text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Origin: ")
+                                    append(stringResource((R.string.character_detail_screen_origin)))
                                 }
                                 append(character?.origin?.name)
                             }, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondary
@@ -105,7 +106,7 @@ fun CharacterDetailScreen(
                         TextAnnotatedApp(
                             text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Species: ")
+                                    append(stringResource(R.string.character_detail_screen_species))
                                 }
                                 append(character?.species)
                             }, color = MaterialTheme.colorScheme.onSecondary
@@ -114,7 +115,7 @@ fun CharacterDetailScreen(
                         TextAnnotatedApp(
                             text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Gender: ")
+                                    append(stringResource(R.string.character_detail_screen_gender))
                                 }
                                 append(character?.gender)
                             }, color = MaterialTheme.colorScheme.onSecondary
@@ -123,7 +124,7 @@ fun CharacterDetailScreen(
                         TextAnnotatedApp(
                             text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Type: ")
+                                    append(stringResource(R.string.character_detail_screen_type))
                                 }
                                 append( if(character?.type.orEmpty().isNotEmpty()) character?.type else "----" )
                             }, color = MaterialTheme.colorScheme.onSecondary
@@ -134,7 +135,7 @@ fun CharacterDetailScreen(
                                 navigateToLocation(character?.location?.id ?: 0)
                             }, text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Location: ")
+                                    append(stringResource(R.string.character_detail_screen_location))
                                 }
                                 withStyle(SpanStyle(textDecoration = TextDecoration.Underline)) {
                                     append(character?.location?.name)
@@ -145,14 +146,14 @@ fun CharacterDetailScreen(
                         TextAnnotatedApp(
                             text = buildAnnotatedString {
                                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append("Character number: ")
+                                    append(stringResource(R.string.character_detail_screen_character_number))
                                 }
                                 append(character?.id.toString())
                             }, color = MaterialTheme.colorScheme.onSecondary
                         )
                         Spacer(Modifier.height(30.dp))
                         TextApp(
-                            text = "Episodes: ",
+                            text = stringResource(R.string.character_detail_screen_episodes),
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSecondary
                         )

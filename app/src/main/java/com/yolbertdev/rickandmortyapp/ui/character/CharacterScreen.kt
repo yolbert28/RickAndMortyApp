@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,19 +38,20 @@ import javax.inject.Inject
 fun CharacterScreen(
     viewModel: CharacterViewModel = hiltViewModel(),
     onChangeTheme: () -> Unit,
+    isDarkTheme: Boolean,
     navigateToDetails: (Int) -> Unit,
     navigateToHome: () -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Layout(onChangeTheme = onChangeTheme, navigateToHome = navigateToHome) { innerPadding ->
+    Layout(onChangeTheme = onChangeTheme, isDarkTheme = isDarkTheme, navigateToHome = navigateToHome) { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding)
         ) {
             item {
                 ImageWithGlassOverlay(
-                    text = "Characters",
+                    text = stringResource(R.string.character_screen_title),
                     image = painterResource(R.drawable.characters),
                     modifier = Modifier.height(380.dp),
                     blurPaddingTop = 250.dp,

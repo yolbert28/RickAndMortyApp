@@ -16,7 +16,10 @@ import com.yolbertdev.rickandmortyapp.ui.location.LocationScreen
 import com.yolbertdev.rickandmortyapp.ui.locationDetail.LocationDetailScreen
 
 @Composable
-fun NavigationWrapper(onChangeTheme: () -> Unit) {
+fun NavigationWrapper(
+    onChangeTheme: () -> Unit,
+    isDarkTheme: Boolean
+) {
 
     val navController = rememberNavController()
 
@@ -31,6 +34,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
         ) {
             HomeScreen(
                 onChangeTheme = onChangeTheme,
+                isDarkTheme = isDarkTheme,
                 navigateToCharacter = {
                     navController.navigate(Character)
                 },
@@ -52,6 +56,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
         ) {
             CharacterScreen(
                 onChangeTheme = onChangeTheme,
+                isDarkTheme = isDarkTheme,
                 navigateToDetails = { id: Int ->
                     navController.navigate(CharacterDetail(id))
                 }
@@ -69,6 +74,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
         ) {
             EpisodeScreen(
                 onChangeTheme = onChangeTheme,
+                isDarkTheme = isDarkTheme,
                 navigateToDetail = { id: Int ->
                     navController.navigate(EpisodeDetail(id))
                 }
@@ -86,6 +92,7 @@ fun NavigationWrapper(onChangeTheme: () -> Unit) {
         ) {
             LocationScreen(
                 onChangeTheme = onChangeTheme,
+                isDarkTheme = isDarkTheme,
                 navigateToLocation = { id: Int ->
                     navController.navigate(LocationDetail(id))
                 }

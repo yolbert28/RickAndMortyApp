@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">Rick And Morty App</string>
+
+    <string name="layout_logo_content_description">Rick and Morty Logo</string>
+    <string name="layout_change_mode_content_description">Change mode</string>
+
+    <string name="home_screen_title">Welcome to the Rick and Morty App</string>
+    <string name="home_screen_subtitle">Find out more about the series</string>
+    <string name="home_screen_character_button">Characters</string>
+    <string name="home_screen_episodes_button">Episodes</string>
+    <string name="home_screen_locations_button">Locations</string>
+
+    <string name="character_screen_title">Characters</string>
+
+    <string name="card_character_item_origin">Origin: </string>
+    <string name="card_character_item_origin_unknow">Unknow</string>
+    <string name="card_character_item_gender">Gender: </string>
+
+
+    <string name="detail_layout_button_back_content_description">Back</string>
+    <string name="detail_layout_button_home_content_description">Home</string>
+
+
+    <string name="character_detail_screen_origin">Origin: </string>
+    <string name="character_detail_screen_species">Species: </string>
+    <string name="character_detail_screen_gender">Gender: </string>
+    <string name="character_detail_screen_type">Type: </string>
+    <string name="character_detail_screen_location">Location: </string>
+    <string name="character_detail_screen_character_number">Character number: </string>
+    <string name="character_detail_screen_episodes">Episodes: </string>
+
+
+    <string name="episode_screen_title">Episodes</string>
+
+    <string name="episode_detail_screen_name">Name: </string>
+    <string name="episode_detail_screen_air_date">Air date: </string>
+    <string name="episode_detail_screen_characters_number">Characters number: </string>
+
+
+    <string name="location_screen_title">Locations</string>
+
+    <string name="location_detail_screen_dimension">Dimension: </string>
+    <string name="location_detail_screen_type">Type: </string>
+    <string name="location_detail_screen_location_number">Location number: </string>
+    <string name="location_detail_screen_residents">Residents: </string>
+
+    <string name="pagination">of</string>
+    <string name="footer">Create by YolbertDev</string>
 </resources>

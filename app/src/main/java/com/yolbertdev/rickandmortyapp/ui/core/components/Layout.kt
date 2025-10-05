@@ -12,14 +12,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.yolbertdev.rickandmortyapp.R
 
 @Composable
-fun Layout(onChangeTheme: () -> Unit, navigateToHome: () -> Unit, content: @Composable (innerPadding: PaddingValues) -> Unit) {
+fun Layout(onChangeTheme: () -> Unit, isDarkTheme: Boolean, navigateToHome: () -> Unit, content: @Composable (innerPadding: PaddingValues) -> Unit) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { TopBarApp(onChangeTheme = onChangeTheme, navigateToHome = navigateToHome) }) { innerPadding ->
+        topBar = { TopBarApp(onChangeTheme = onChangeTheme, isDarkTheme = isDarkTheme, navigateToHome = navigateToHome) }) { innerPadding ->
         content(innerPadding)
     }
 
@@ -36,7 +38,7 @@ fun Footer(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         TextApp(
-            text = "Create by YolbertDev"
+            text = stringResource(R.string.footer)
         )
     }
 }

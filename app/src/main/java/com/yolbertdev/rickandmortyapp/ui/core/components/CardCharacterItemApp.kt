@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.yolbertdev.rickandmortyapp.domain.model.Character
 import com.yolbertdev.rickandmortyapp.ui.core.effects.shimmerEffect
-
+import com.yolbertdev.rickandmortyapp.R
 @Composable
 fun CardCharacterItemApp(character: Character, modifier: Modifier = Modifier) {
     Card(
@@ -53,9 +54,9 @@ fun CardCharacterItemApp(character: Character, modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(horizontal = 20.dp).fillMaxWidth(),
                     text = buildAnnotatedString {
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)){
-                            append("Origen: ")
+                            append(stringResource(R.string.card_character_item_origin))
                         }
-                        append(character.origin?.name ?: "Unknow" )
+                        append(character.origin?.name ?: stringResource(R.string.card_character_item_origin_unknow) )
                     },
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.Medium,
@@ -66,7 +67,7 @@ fun CardCharacterItemApp(character: Character, modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(start = 20.dp),
                     text = buildAnnotatedString {
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)){
-                            append("Gender: ")
+                            append(stringResource(R.string.card_character_item_gender))
                         }
                         append(character.gender)
                     },

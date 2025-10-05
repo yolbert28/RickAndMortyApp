@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Rick And Morty App</string>
+
+    <string name="layout_logo_content_description">Logo Rick y Morty</string>
+    <string name="layout_change_mode_content_description">Cambiar modo</string>
+
+    <string name="home_screen_title">Bienvenido a la aplicación de Rick y Morty</string>
+    <string name="home_screen_subtitle">Descubre más acerca de la serie</string>
+    <string name="home_screen_character_button">Personajes</string>
+    <string name="home_screen_episodes_button">Episodios</string>
+    <string name="home_screen_locations_button">Ubicaciones</string>
+
+    <string name="character_screen_title">Personajes</string>
+
+    <string name="card_character_item_origin">Origen: </string>
+    <string name="card_character_item_origin_unknow">Desconocido</string>
+    <string name="card_character_item_gender">Genero: </string>
+
+
+    <string name="detail_layout_button_back_content_description">Regresar</string>
+    <string name="detail_layout_button_home_content_description">Casa</string>
+
+
+    <string name="character_detail_screen_origin">Origen: </string>
+    <string name="character_detail_screen_species">Especie: </string>
+    <string name="character_detail_screen_gender">Genero: </string>
+    <string name="character_detail_screen_type">Tipo: </string>
+    <string name="character_detail_screen_location">Ubicación: </string>
+    <string name="character_detail_screen_character_number">Número de personaje: </string>
+    <string name="character_detail_screen_episodes">Episodios: </string>
+
+
+    <string name="episode_screen_title">Episodios</string>
+
+    <string name="episode_detail_screen_name">Nombre: </string>
+    <string name="episode_detail_screen_air_date">Fecha al aire: </string>
+    <string name="episode_detail_screen_characters_number">Número de personaje: </string>
+
+
+    <string name="location_screen_title">Ubicaciones</string>
+
+    <string name="location_detail_screen_dimension">Dimension: </string>
+    <string name="location_detail_screen_type">Tipo: </string>
+    <string name="location_detail_screen_location_number">Número de ubicación: </string>
+    <string name="location_detail_screen_residents">Residentes: </string>
+
+    <string name="pagination">de</string>
+    <string name="footer">Creado por YolbertDev</string>
+</resources>

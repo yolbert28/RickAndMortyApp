@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yolbertdev.rickandmortyapp.R
 
@@ -41,7 +42,7 @@ fun DetailLayout(navigateBack: () -> Unit, navigateToHome: () -> Unit, content: 
                                 navigateBack()
                             },
                         painter = painterResource(R.drawable.arrow_back),
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.detail_layout_button_back_content_description),
                         tint = MaterialTheme.colorScheme.onSecondary
                     )
                     Icon(
@@ -53,7 +54,7 @@ fun DetailLayout(navigateBack: () -> Unit, navigateToHome: () -> Unit, content: 
                                 navigateToHome()
                             },
                         painter = painterResource(R.drawable.home),
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.detail_layout_button_home_content_description),
                         tint = MaterialTheme.colorScheme.onSecondary
                     )
                 }

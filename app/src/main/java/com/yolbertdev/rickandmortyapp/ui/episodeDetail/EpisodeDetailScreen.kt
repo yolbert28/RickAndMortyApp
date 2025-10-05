@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -34,7 +35,7 @@ import com.yolbertdev.rickandmortyapp.ui.core.components.DetailLayout
 import com.yolbertdev.rickandmortyapp.ui.core.components.LoadingDetail
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextAnnotatedApp
 import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
-
+import com.yolbertdev.rickandmortyapp.R
 @Composable
 fun EpisodeDetailScreen(
     id: Int,
@@ -80,7 +81,7 @@ fun EpisodeDetailScreen(
                     TextAnnotatedApp(
                         text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Name: ")
+                                append(stringResource(R.string.episode_detail_screen_name))
                             }
                             append(episode?.name)
                         },
@@ -91,7 +92,7 @@ fun EpisodeDetailScreen(
                     TextAnnotatedApp(
                         text = buildAnnotatedString {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                append("Air date: ")
+                                append(stringResource(R.string.episode_detail_screen_air_date))
                             }
                             append(episode?.airDate)
                         },
@@ -99,7 +100,7 @@ fun EpisodeDetailScreen(
                     )
                     Spacer(Modifier.height(30.dp))
                     TextApp(
-                        text = "Characters number: ",
+                        text = stringResource(R.string.episode_detail_screen_characters_number),
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSecondary
                     )

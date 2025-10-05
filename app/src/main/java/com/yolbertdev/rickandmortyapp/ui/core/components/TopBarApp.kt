@@ -17,12 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.yolbertdev.rickandmortyapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarApp(onChangeTheme: () -> Unit, navigateToHome: () -> Unit) {
+fun TopBarApp(onChangeTheme: () -> Unit, isDarkTheme: Boolean, navigateToHome: () -> Unit) {
     TopAppBar(
         title = {
             Box(
@@ -35,7 +36,7 @@ fun TopBarApp(onChangeTheme: () -> Unit, navigateToHome: () -> Unit) {
                         navigateToHome()
                     },
                     painter = painterResource(R.drawable.logo),
-                    contentDescription = "Rick and Morty Logo"
+                    contentDescription = stringResource(R.string.layout_logo_content_description)
                 )
                 Icon(
                     modifier = Modifier
@@ -44,8 +45,8 @@ fun TopBarApp(onChangeTheme: () -> Unit, navigateToHome: () -> Unit) {
                         .clickable{
                             onChangeTheme()
                         },
-                    painter = painterResource(R.drawable.light_mode),
-                    contentDescription = "Change mode",
+                    painter = painterResource(if(isDarkTheme) R.drawable.light_mode else R.drawable.dark_mode),
+                    contentDescription = stringResource(R.string.layout_change_mode_content_description),
                     tint = MaterialTheme.colorScheme.secondary
                 )
             }

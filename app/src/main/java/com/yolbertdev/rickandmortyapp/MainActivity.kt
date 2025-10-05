@@ -2,6 +2,8 @@ package com.yolbertdev.rickandmortyapp
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -38,7 +40,15 @@ val Context.dataStore by preferencesDataStore(name = "THEME_PREFERENCES_MODE")
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        val splash = installSplashScreen()
+        var keepSplash = true
+
+        splash.setKeepOnScreenCondition { keepSplash }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            keepSplash = false
+        }, 700)
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -53,7 +63,8 @@ class MainActivity : ComponentActivity() {
                         lifecycleScope.launch(Dispatchers.IO) {
                             save(!isDarkTheme)
                         }
-                    }
+                    },
+                    isDarkTheme = isDarkTheme
                 )
             }
         }

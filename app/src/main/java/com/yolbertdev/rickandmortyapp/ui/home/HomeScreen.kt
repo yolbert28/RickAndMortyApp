@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,11 +32,12 @@ import com.yolbertdev.rickandmortyapp.ui.core.components.TextApp
 @Composable
 fun HomeScreen(
     onChangeTheme: () -> Unit,
+    isDarkTheme: Boolean,
     navigateToCharacter: () -> Unit,
     navigateToEpisode: () -> Unit,
     navigateToLocation: () -> Unit,
 ) {
-    Layout(onChangeTheme = onChangeTheme, navigateToHome = {}) { innerPadding ->
+    Layout(onChangeTheme = onChangeTheme, isDarkTheme = isDarkTheme, navigateToHome = {}) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -45,14 +47,14 @@ fun HomeScreen(
         ) {
             item {
                 ImageWithGlassOverlay(
-                    text = "Welcome to the Rick and Morty App",
+                    text = stringResource(R.string.home_screen_title),
                     image = painterResource(R.drawable.background),
                     modifier = Modifier.height(400.dp)
                 )
                 Spacer(Modifier.height(40.dp))
                 TextApp(
                     modifier = Modifier.padding(horizontal = 32.dp),
-                    text = "Descubre más acerca de la serie",
+                    text = stringResource(R.string.home_screen_subtitle),
                     fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Medium
@@ -64,12 +66,12 @@ fun HomeScreen(
                         .clickable {
                             navigateToCharacter()
                         },
-                    text = "Personajes"
+                    text = stringResource(R.string.home_screen_character_button)
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
                         painter = painterResource(R.drawable.characters),
-                        contentDescription = "Characters",
+                        contentDescription = stringResource(R.string.home_screen_character_button),
                         contentScale = ContentScale.Crop
                     )
                 }
@@ -79,7 +81,7 @@ fun HomeScreen(
                         .clickable {
                             navigateToEpisode()
                         },
-                    text = "Episodios"
+                    text = stringResource(R.string.home_screen_episodes_button)
                 ) {
                     Image(
                         modifier = Modifier
@@ -90,7 +92,7 @@ fun HomeScreen(
                             .rotate(-15f)
                             .fillMaxHeight(),
                         painter = painterResource(R.drawable.season5),
-                        contentDescription = "Characters"
+                        contentDescription = stringResource(R.string.home_screen_episodes_button)
                     )
                     Image(
                         modifier = Modifier
@@ -101,14 +103,14 @@ fun HomeScreen(
                             }
                             .fillMaxHeight(),
                         painter = painterResource(R.drawable.season4),
-                        contentDescription = "Characters"
+                        contentDescription = stringResource(R.string.home_screen_episodes_button)
                     )
                     Image(
                         modifier = Modifier
                             .padding(vertical = 5.dp)
                             .fillMaxHeight(),
                         painter = painterResource(R.drawable.season1),
-                        contentDescription = "Characters"
+                        contentDescription = stringResource(R.string.home_screen_episodes_button)
                     )
                 }
                 CardHomeApp(
@@ -117,12 +119,12 @@ fun HomeScreen(
                         .clickable {
                             navigateToLocation()
                         },
-                    text = "Ubicaciones"
+                    text = stringResource(R.string.home_screen_locations_button)
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
                         painter = painterResource(R.drawable.planet),
-                        contentDescription = "Characters",
+                        contentDescription = stringResource(R.string.home_screen_locations_button),
                         contentScale = ContentScale.Crop
                     )
                 }
